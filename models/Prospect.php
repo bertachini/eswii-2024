@@ -1,5 +1,5 @@
 <?php
-namespace models  ;
+namespace models;
 
 /**
  * Classe Model de Prospects

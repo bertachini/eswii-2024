@@ -5,8 +5,9 @@ $separador = DIRECTORY_SEPARATOR;
 $root = $_SERVER['DOCUMENT_ROOT'];
 
 require_once('../models/Usuario.php');
-
+require_once('configdb.php');
 use models\Usuario;
+
 /**
  * Esta classe é responsável por fazer a comunicação 
  * com o banco de dados, provendo os métodos de logar 
@@ -14,20 +15,6 @@ use models\Usuario;
  * @author Paulo Roberto Córdova
  */
 class DAOUsuario{
-    private function conectarDB(){
-        $separator = DIRECTORY_SEPARATOR;
-        $diretorioBase = dirname((__FILE__).$separator);
-        require('configdb.php');
-
-        try{
-            $conn = new \MySQLi($dbhost, $user, $password, $banco);
-            return $conn;
-        }catch(mysqli_sql_exception $e){
-            throw new \Exception($e);
-            die;
-        }
-    }
-
     /**
      * Este método tem a função de validar os dados fornecidos
      * pelo usuário para logar no sistema.
@@ -35,7 +22,7 @@ class DAOUsuario{
      * @param string $senha Senha do usuário.
      */
     public function logar($login, $senha){
-        $conexaoDB = $this->conectarDB();
+        $conexaoDB = conectarDB();
         $usuario = new Usuario();
         $sql = $conexaoDB->prepare('select login, nome, email, celular from usuario
                                     where
@@ -61,7 +48,7 @@ class DAOUsuario{
         }
     }
     public function incluirUsuario($nome, $email, $login, $senha){
-        $conexaoDB = $this->conectarDB();
+        $conexaoDB = conectarDB();
 
         $sqlInsert = $conexaoDB->prepare("insert into usuario
                                         (nome, email, login, senha)
