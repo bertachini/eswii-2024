@@ -1,8 +1,10 @@
 <?php
-session_start();
 require_once('../models/Usuario.php');
-use MODELS\Usuario;
+use models\Usuario;
+session_start();
 if(isset($_SESSION['usuario'])){
+
+
 ?>
 <!DOCTYPE html>
 <html>
@@ -13,24 +15,27 @@ if(isset($_SESSION['usuario'])){
     </head>
     <body>
         <header>
-            <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-                <div class="collapse navbar-collapse" id="textoNavbar">
-                    <ul class="navbar-nav mr-auto">
-                        <li class="nav-link active">
-                           <a class="nav-link" href="#">Home<span class="sr-only">(Página atual)</span></a>
-                        </li>
-                        <li class="nav-item">
-                        <a class="nav-link" href="">Cadastrar Prospect</a>
-                        </li>
-                    </ul>
-                    <span class="navbar-text">
-                        Bem Vindo: <?php $usuario = unserialize($_SESSION['usuario']);
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <div class="collapse navbar-collapse" id="textoNavbar">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="#">Home <span class="sr-only">(Página atual)</span></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="Prospect/v_listar_prospects.php">Cadastrar Prospects</a>
+                    </li>
+                </ul>
+                <span class="navbar-text">
+                    Bem vindo:
+                    <?php
+                        $usuario = unserialize($_SESSION['usuario']);
                         echo $usuario->nome;
-                        ?>
-                    </span>
-                </div>
-            </nav>
+                    ?>
+                </span>
+            </div>
+        </nav>
         </header>
+
     </body>
 </html>
 <?php
